@@ -54,6 +54,10 @@ public class SongArtist implements Comparable<SongArtist>{
 		return compare;
 	}
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
 	public String toString() {
 		return song+ " - " +artist+ " - " +album+ " - " +year;
 	}

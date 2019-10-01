@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 Honesty*PinkSweat*Album2*1998
 Kill This Love*Blackpink*Album1*1990
 kill this love*Blackpink*Album1*1990
 Sleep On It*Gallant*Album3*2010
+=======
+Zebra
+Honesty
+Sleep On It
+Anon
+>>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
