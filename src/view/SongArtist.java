@@ -60,6 +60,10 @@ public class SongArtist implements Comparable<SongArtist>{
 		return song+ " - " +artist+ " - " +album+ " - " +year;
 	}
 	
+	public String toText() {
+		return song+ "*" +artist+ "*" +album+ "*" +year;
+	}
+	
 }
 
 	

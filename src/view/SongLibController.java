@@ -8,9 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 
-
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
@@ -104,14 +105,55 @@ public class SongLibController {
         }
     }
     
+    
+    //writes sorted song library to songlist.txt so there is persistence
+    public static void writeToText(ArrayList<SongArtist> librarylist) {
+    	
+    	//delete txt and write new one
+    	File fold = new File("src/view/songlist.txt");
+    	fold.delete();
+    	
+    	File fnew = new File("src/view/songlist.txt");
+    	
+    	try {
+    		FileWriter f2 = new FileWriter(fnew,false);
+
+    		//convert list of objects to string list in the songlist.txt format and write to songlist.txt
+    		ArrayList<String> textlist = objectToText(librarylist);
+    		int n = textlist.size();
+    			
+    		for(int i=0;i<n;i++) {
+    			f2.write(textlist.get(i).toString()+"\n");
+    		}
+    		f2.close();
+    	}catch(Exception e){
+    		System.err.println(e);
+    	}
+    }
+    
     //convert object list to string list
-    public ArrayList<String> objectToList(ArrayList<SongArtist> librarylist){
+    public static ArrayList<String> objectToList(ArrayList<SongArtist> librarylist){
     	
     	int n = librarylist.size();
     	ArrayList<String> listlist = new ArrayList<String>();
     	
     	for(int i=0;i<n;i++) {
     		listlist.add(librarylist.get(i).toString());
+    	}
+    	
+    	//System.out.println(listlist);
+    	return listlist;
+    	
+    }
+    
+    //convert object list to string list
+    public static ArrayList<String> objectToText(ArrayList<SongArtist> librarylist){
+    	
+    	int n = librarylist.size();
+    	ArrayList<String> listlist = new ArrayList<String>();
+    	
+    	for(int i=0;i<n;i++) {
+    		listlist.add(librarylist.get(i).toText());
     	}
     	
     	//System.out.println(listlist);
@@ -158,6 +200,8 @@ public class SongLibController {
     	addartist.clear();
     	addalbum.clear();
     	addyear.clear();
+    	
+    	writeToText(librarylist);
     }
 	
 	
