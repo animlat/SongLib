@@ -54,10 +54,6 @@ public class SongLibController {
     ArrayList<String> stringlist = new ArrayList<String>();
 
     
-    
-    
-    
-    
     public void initialize(){        
         
         //read from songlist.txt and create array of SongArtist objects, also creates according array of String for listview
@@ -71,12 +67,33 @@ public class SongLibController {
 		
 		// select the first item
 	    listView.getSelectionModel().select(0);
+	      listView
+	        .getSelectionModel()
+	        .selectedIndexProperty()
+	        .addListener(
+	           (obs, oldVal, newVal) -> 
+	               selectsong());
 	    
     }
 
-    
-    
-    
+	private void selectsong() {
+		String item = listView.getSelectionModel().getSelectedItem();
+		int index = listView.getSelectionModel().getSelectedIndex();
+
+		String content = "Index: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedIndex() + 
+		          "\nValue: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedItem();
+		 System.out.println(content);
+		 //call a function that changes edit a song window
+		 editSongWindowUpdate(item);
+	}
+	
+	private void editSongWindowUpdate(String songdetails) {
+		editsongName.setText(songdetails);
+	}
     
     
     //reads from file and populates librarylist!
@@ -181,6 +198,24 @@ public class SongLibController {
     	
     }
     
+    public boolean delete(SongArtist toDelete) {
+    	//find toDelete in librarylist
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toDelete.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toDelete.artist.toLowerCase())) {
+        		librarylist.remove(i);
+                Collections.sort(librarylist);   
+           		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+          		listView.setItems(obsList);       
+           		writeToText(librarylist);
+        		return true;
+    		}
+    	}
+    	
+    	//should never reach here, toDelete always exists in librarylist bc the user picks it from the list.
+    	//we need to take into account if the user hits delete without selecting a song
+    	return false;
+    }
+    
 	// Button was clicked, do something…
 	//get songName, artist, album, year
 	//create new songArtist
@@ -207,7 +242,22 @@ public class SongLibController {
 	
 	@FXML
 	void deletebutton(ActionEvent event) {
+		//are you sure popup?x
+		
+		int index = listView.getSelectionModel().getSelectedIndex();
+		if(index==-1) 
+			return;
 
+		//call delete
+		delete(librarylist.get(index));
+		
+		//select the song after the deleted song, if there is no song after, select the song before.
+		if(index==librarylist.size()) {
+			listView.getSelectionModel().select(index-1);
+		}else {
+			listView.getSelectionModel().select(index);
+		}
+		
 	}
 
 	
