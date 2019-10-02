@@ -194,8 +194,14 @@ public class SongLibController {
         Collections.sort(librarylist);   
    		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
   		listView.setItems(obsList); 
-        return true;
-    	
+  		//select added song
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toAdd.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toAdd.artist.toLowerCase())) {
+    		    listView.getSelectionModel().select(i);
+    		    return true;
+    		}
+    	}
+    	return true;
     }
     
     public boolean delete(SongArtist toDelete) {
