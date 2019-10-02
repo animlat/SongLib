@@ -1,20 +1,22 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.Optional;
 
 
 
@@ -46,6 +48,9 @@ public class SongLibController {
 
     @FXML
     private TextField edityear;
+    
+    @FXML
+    private Button mydeletebutton;
 
 	
     private ObservableList<String> obsList;
@@ -71,7 +76,7 @@ public class SongLibController {
 		
 		// select the first item
 	    listView.getSelectionModel().select(0);
-	    
+	    	    
     }
 
     
@@ -186,9 +191,9 @@ public class SongLibController {
 	//create new songArtist
 	//add to listlibrary and update obList
 	@FXML
-    void addbutton(ActionEvent event) {
-
-    	SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
+    void addsong(ActionEvent event) {
+		alertpopup(mydeletebutton);
+    	/*SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
     	System.out.println(toadd);
     	if(!add(toadd)) {
     		//send out an error message
@@ -201,13 +206,30 @@ public class SongLibController {
     	addalbum.clear();
     	addyear.clear();
     	
-    	writeToText(librarylist);
+    	writeToText(librarylist);*/
+    	
     }
 	
 	
 	@FXML
 	void deletebutton(ActionEvent event) {
 
+	}
+	
+	private void alertpopup(Button button) {                
+	      //String item = listView.getSelectionModel().getSelectedItem();
+	      //int index = listView.getSelectionModel().getSelectedIndex();
+
+	      TextInputDialog dialog = new TextInputDialog();
+	      dialog.initOwner((Stage) button.getScene().getWindow()); dialog.setTitle("Confirm add pop up");
+	      dialog.setHeaderText("Hey this you got a pop up!");
+	      //dialog.setContentText("Pop up content");
+
+	      Optional<String> result = dialog.showAndWait();
+	      if (result.isPresent()) { 
+	      		//logic set here
+	      }
+	   
 	}
 
 	
