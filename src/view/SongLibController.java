@@ -50,7 +50,10 @@ public class SongLibController {
     private TextField edityear;
     
     @FXML
-    private Button mydeletebutton;
+    private Button addbutton;
+    
+    @FXML
+    private Button deletebutton;
 
 	
     private ObservableList<String> obsList;
@@ -192,7 +195,7 @@ public class SongLibController {
 	//add to listlibrary and update obList
 	@FXML
     void addsong(ActionEvent event) {
-		alertpopup(mydeletebutton);
+		alertpopup(deletebutton);
     	/*SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
     	System.out.println(toadd);
     	if(!add(toadd)) {
