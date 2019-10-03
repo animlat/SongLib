@@ -330,10 +330,50 @@ public class SongLibController {
 		if(a.getResult() == ButtonType.YES) {
 			
 			//ALL THE CODE TO EDIT THIS SONG GOES HERE
-			
+			int index = listView.getSelectionModel().getSelectedIndex();
+	    	SongArtist editedsong = new SongArtist(editsongName.getText(), editartist.getText(), editalbum.getText(), edityear.getText());
+	    	
+	    	if(!edit(editedsong,index)) {
+	    		Alert b = new Alert(AlertType.ERROR,"Song already exists",ButtonType.OK);
+	    		b.setTitle("Confirm Edit Song");
+	    		b.showAndWait();
+	    	}
+	    	writeToText(librarylist);
 		}
 		
 	}
+	
+	
+	
+	//to edit something, i have to check if its being edited into something that already exists
+	//to do so, save unedited object, remove from librarylist, check if something else matches edited
+	// if it does, then put the original song back and reprot a failure
+	// also check to see if the song was edited at all, and if not give an erros and say nothing changed?
+    public boolean edit(SongArtist edited,int originalindex) {
+    	//not sure if check for null means anything addsongName.getText().equals(null) || addartist.getText().equals(null) || 
+    	if(editsongName.getText().equals("") || editartist.getText().equals("")) {
+    		return false;
+    	}
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(edited.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(edited.artist.toLowerCase())&&i!=originalindex) {
+        		return false;
+    		}
+    	}  	
+    	
+    	librarylist.remove(originalindex);
+    	librarylist.add(edited);
+        Collections.sort(librarylist);   
+   		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+  		listView.setItems(obsList); 
+  		//select added song
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(edited.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(edited.artist.toLowerCase())) {
+    		    listView.getSelectionModel().select(i);
+    		    return true;
+    		}
+    	}
+    	return true;
+    }
 	
 
 	
