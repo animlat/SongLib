@@ -1,22 +1,24 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.stage.Stage;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Label;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Collections;
-import java.util.Optional;
 
 
 
@@ -50,20 +52,23 @@ public class SongLibController {
     private TextField edityear;
     
     @FXML
-    private Button addbutton;
+    private Label songdetails;
     
     @FXML
-    private Button deletebutton;
-
+    private Label songdetails2;
+    
+    @FXML
+    private Label songdetails3;
+    
+    @FXML
+    private Label songdetails4;
+    
 	
     private ObservableList<String> obsList;
     ArrayList<SongArtist> librarylist = new ArrayList<SongArtist>();
     
     ArrayList<String> stringlist = new ArrayList<String>();
 
-    
-    
-    
     
     
     public void initialize(){        
@@ -79,12 +84,47 @@ public class SongLibController {
 		
 		// select the first item
 	    listView.getSelectionModel().select(0);
-	    	    
+	    editSongWindowUpdate(listView.getSelectionModel().getSelectedItem());
+	    
+	      listView
+	        .getSelectionModel()
+	        .selectedIndexProperty()
+	        .addListener(
+	           (obs, oldVal, newVal) -> 
+	               selectsong());
+	    
     }
 
     
     
     
+	private void selectsong() {
+		String item = listView.getSelectionModel().getSelectedItem();
+		int index = listView.getSelectionModel().getSelectedIndex();
+
+		String content = "Index: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedIndex() + 
+		          "\nValue: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedItem();
+		 //System.out.println(content);
+		 //call a function that changes edit a song window
+		 editSongWindowUpdate(item);
+	}
+	
+	private void editSongWindowUpdate(String songstring) {
+        String[] data = songstring.split("-",4);
+        editsongName.setText(data[0].trim());
+		editartist.setText(data[1].trim());
+		editalbum.setText(data[2].trim());
+		edityear.setText(data[3].trim());
+		
+		songdetails.setText("Song: "+data[0]);
+		songdetails2.setText("Artist: "+data[1]);
+		songdetails3.setText("Album: "+data[2]);
+		songdetails4.setText("Year: "+data[3]);
+	}
     
     
     //reads from file and populates librarylist!
@@ -185,55 +225,116 @@ public class SongLibController {
         Collections.sort(librarylist);   
    		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
   		listView.setItems(obsList); 
-        return true;
-    	
+  		//select added song
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toAdd.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toAdd.artist.toLowerCase())) {
+    		    listView.getSelectionModel().select(i);
+    		    return true;
+    		}
+    	}
+    	return true;
     }
     
-	// Button was clicked, do something…
-	//get songName, artist, album, year
-	//create new songArtist
-	//add to listlibrary and update obList
-	@FXML
-    void addsong(ActionEvent event) {
-		alertpopup(deletebutton);
-    	/*SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
-    	System.out.println(toadd);
-    	if(!add(toadd)) {
-    		//send out an error message
-    		System.out.println("EITHER SONG ARTIST TEXT FIELD IS NULL OR SONG ARTIST ALREADY EXISTS");
+    public boolean delete(SongArtist toDelete) {
+    	//find toDelete in librarylist
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toDelete.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toDelete.artist.toLowerCase())) {
+        		librarylist.remove(i);
+                Collections.sort(librarylist);   
+           		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+          		listView.setItems(obsList);       
+           		writeToText(librarylist);
+        		return true;
+    		}
     	}
     	
-    	//reset textboxes
-    	addsongName.clear();
-    	addartist.clear();
-    	addalbum.clear();
-    	addyear.clear();
-    	
-    	writeToText(librarylist);*/
-    	
+    	//should never reach here, toDelete always exists in librarylist bc the user picks it from the list.
+    	//we need to take into account if the user hits delete without selecting a song
+    	return false;
+    }
+    
+    //creates an error pop-up, fill with errormessage String
+    void errorpopup(String errormessage) {
+    	Alert a = new Alert(AlertType.ERROR);
+    	a.setTitle("Error");
+    	a.setContentText(errormessage);
+    	a.showAndWait();
+    }
+    
+	// add button click - confirm with pop up!
+	@FXML
+    void addsong(ActionEvent event) {
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to ADD this song?",ButtonType.YES,ButtonType.CANCEL);
+		//a.setHeaderText(null);
+		a.setTitle("Confirm Add Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			//get songName, artist, album, year
+			//create new songArtist
+			//add to listlibrary and update obList
+			
+	    	SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
+	    	//System.out.println(toadd);
+	    	if(!add(toadd)) {
+	    		//send out an error message
+	    		errorpopup("This song and artist already exists, or you did not enter anything into the field. Please fix and try again!");
+	    		System.out.println("EITHER SONG ARTIST TEXT FIELD IS NULL OR SONG ARTIST ALREADY EXISTS");
+	    	}
+	    	
+	    	//reset textboxes
+	    	addsongName.clear();
+	    	addartist.clear();
+	    	addalbum.clear();
+	    	addyear.clear();
+	    	
+	    	writeToText(librarylist);
+		}
+		
     }
 	
 	
 	@FXML
-	void deletebutton(ActionEvent event) {
+	void deletesong(ActionEvent event) {
+		//are you sure popup?
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to DELETE this song?",ButtonType.YES,ButtonType.CANCEL);
+		a.setTitle("Confirm Delete Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			int index = listView.getSelectionModel().getSelectedIndex();
+			if(index==-1) 
+				return;
 
+			//call delete
+			delete(librarylist.get(index));
+			
+			//select the song after the deleted song, if there is no song after, select the song before.
+			if(index==librarylist.size()) {
+				listView.getSelectionModel().select(index-1);
+			}else {
+				listView.getSelectionModel().select(index);
+			}
+			
+		}
+		
 	}
 	
-	private void alertpopup(Button button) {                
-	      //String item = listView.getSelectionModel().getSelectedItem();
-	      //int index = listView.getSelectionModel().getSelectedIndex();
-
-	      TextInputDialog dialog = new TextInputDialog();
-	      dialog.initOwner((Stage) button.getScene().getWindow()); dialog.setTitle("Confirm add pop up");
-	      dialog.setHeaderText("Hey this you got a pop up!");
-	      //dialog.setContentText("Pop up content");
-
-	      Optional<String> result = dialog.showAndWait();
-	      if (result.isPresent()) { 
-	      		//logic set here
-	      }
-	   
+	
+	@FXML
+	void editsong(ActionEvent event) {
+		//are you sure popup?
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to EDIT this song?",ButtonType.YES,ButtonType.CANCEL);
+		a.setTitle("Confirm Edit Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			//ALL THE CODE TO EDIT THIS SONG GOES HERE
+			
+		}
+		
 	}
+	
 
 	
 }
