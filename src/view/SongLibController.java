@@ -101,6 +101,7 @@ public class SongLibController {
 	private void selectsong() {
 		String item = listView.getSelectionModel().getSelectedItem();
 		int index = listView.getSelectionModel().getSelectedIndex();
+		System.out.println(index+"erfg");
 
 		String content = "Index: " + 
 		          listView.getSelectionModel()
@@ -114,6 +115,9 @@ public class SongLibController {
 	}
 	
 	private void editSongWindowUpdate(String songstring) {
+		if(songstring==null) {
+			return;
+		}
         String[] data = songstring.split("-",4);
         editsongName.setText(data[0].trim());
 		editartist.setText(data[1].trim());
@@ -307,7 +311,7 @@ public class SongLibController {
 				return;
 
 			//call delete
-			delete(librarylist.get(index));
+			System.out.println(delete(librarylist.get(index)));
 			
 			//select the song after the deleted song, if there is no song after, select the song before.
 			if(index==librarylist.size()) {
@@ -334,8 +338,8 @@ public class SongLibController {
 	    	SongArtist editedsong = new SongArtist(editsongName.getText(), editartist.getText(), editalbum.getText(), edityear.getText());
 	    	
 	    	if(!edit(editedsong,index)) {
-	    		Alert b = new Alert(AlertType.ERROR,"Song already exists",ButtonType.OK);
-	    		b.setTitle("Confirm Edit Song");
+	    		Alert b = new Alert(AlertType.ERROR,"Song error",ButtonType.OK);
+	    		b.setTitle("Song Error");
 	    		b.showAndWait();
 	    	}
 	    	writeToText(librarylist);
@@ -351,6 +355,9 @@ public class SongLibController {
 	// also check to see if the song was edited at all, and if not give an erros and say nothing changed?
     public boolean edit(SongArtist edited,int originalindex) {
     	//not sure if check for null means anything addsongName.getText().equals(null) || addartist.getText().equals(null) || 
+    	if(librarylist.size()==0) {
+    		return false;
+    	}
     	if(editsongName.getText().equals("") || editartist.getText().equals("")) {
     		return false;
     	}
