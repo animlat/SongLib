@@ -1,8 +1,11 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,23 +16,37 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+import javafx.scene.control.Label;
+
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Collections;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import javafx.collections.FXCollections;
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
 
 
 public class SongLibController {
 	
     @FXML
     private ListView<String> listView;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	@FXML
@@ -82,55 +99,82 @@ public class SongLibController {
 
 	@FXML
     private Label label;	
+=======
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
 	
 	@FXML
-	private TextField songName;
+	private TextField addsongName;
 	
 	@FXML
-	private TextField artist;
+	private TextField addartist;
 	
 	@FXML
-	private TextField album;
+	private TextField addalbum;
 	
 	@FXML
-	private TextField year;
+	private TextField addyear;
+	
+    @FXML
+    private TextField editsongName;
+
+    @FXML
+    private TextField editartist;
+
+    @FXML
+    private TextField editalbum;
+
+    @FXML
+    private TextField edityear;
+    
+    @FXML
+    private Label songdetails;
+    
+    @FXML
+    private Label songdetails2;
+    
+    @FXML
+    private Label songdetails3;
+    
+    @FXML
+    private Label songdetails4;
+    
 	
     private ObservableList<String> obsList;
+    ArrayList<SongArtist> librarylist = new ArrayList<SongArtist>();
     
-    static ArrayList<String> stringlist = new ArrayList<String>();
-    static ArrayList<SongArtist> librarylist = new ArrayList<SongArtist>();
+    ArrayList<String> stringlist = new ArrayList<String>();
 
-    public void initialize(){
-        //sets label
-    	String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        //label.setText("Hello, JavaFX " + javafxVersion + "\nRunning on Java " + javaVersion + "\nThis is my Song Library.");
+    
+    
+    public void initialize(){        
         
-        //read from songlist.txt to get songs; this is how persistence is handled
-        //readFromFile(listlist);
-        //sortAndPrint(listlist);
-        
-        //way to sort objects, need to figure out how to read "object" from txt file, sort only needs to be run on "add" and "edit"
-        librarylist.add(new SongArtist("Sleep On It","Galant","Album1","1990"));
-        librarylist.add(new SongArtist("Honesty","PinkSweat","PinkAlbum","1997"));
-        librarylist.add(new SongArtist("Kill This Love","Blackpink","Blackalbum","2013"));
-        Collections.sort(librarylist);
-        System.out.println(librarylist);                
-        
-        //move from Object ArrayList to String ArrayList to display in List View
-        stringlist = objectToList(librarylist);
+        //read from songlist.txt and create array of SongArtist objects, also creates according array of String for listview
+        readSongArtist(librarylist,stringlist);
         
 		// create an ObservableList 
 		// from an ArrayList  
-		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+		obsList = FXCollections.observableArrayList(stringlist); 
 
 		listView.setItems(obsList); 
+<<<<<<< HEAD
 		label.setText(librarylist.get(0).toString());
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+		
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
 		// select the first item
 	    listView.getSelectionModel().select(0);
+	    editSongWindowUpdate(listView.getSelectionModel().getSelectedItem());
+	    
+	      listView
+	        .getSelectionModel()
+	        .selectedIndexProperty()
+	        .addListener(
+	           (obs, oldVal, newVal) -> 
+	               selectsong());
 	    
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     
@@ -160,43 +204,77 @@ public class SongLibController {
             s.close();
             System.out.println(librarylist);
 =======
-    
-    @FXML
-    public void handleButtonAction() {
-        // Button was clicked, do something…
-    	//get songName, artist, album, year
-    	//create new songArtist
-    	//add to listlibrary and update obList
+=======
 
-    	SongArtist toadd = new SongArtist(songName.getText(), artist.getText(), album.getText(), year.getText());
-    	System.out.println(toadd);
-    	if(!add(toadd)) {
-    		//send out an error message
-    	}
-    	
-    	//reset textboxes
-    	songName.clear();
-    	artist.clear();
-    	album.clear();
-    	year.clear();
-    	
-    }
     
-    public void readFromFile(ArrayList<String> songlist) {
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
+    
+    
+	private void selectsong() {
+		String item = listView.getSelectionModel().getSelectedItem();
+		int index = listView.getSelectionModel().getSelectedIndex();
+		System.out.println(index+"erfg");
+
+		String content = "Index: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedIndex() + 
+		          "\nValue: " + 
+		          listView.getSelectionModel()
+		                   .getSelectedItem();
+		 //System.out.println(content);
+		 //call a function that changes edit a song window
+		 editSongWindowUpdate(item);
+	}
+	
+	private void editSongWindowUpdate(String songstring) {
+		if(songstring==null) {
+			return;
+		}
+        String[] data = songstring.split("-",4);
+        editsongName.setText(data[0].trim());
+		editartist.setText(data[1].trim());
+		editalbum.setText(data[2].trim());
+		edityear.setText(data[3].trim());
+		
+		songdetails.setText("Song: "+data[0]);
+		songdetails2.setText("Artist: "+data[1]);
+		songdetails3.setText("Album: "+data[2]);
+		songdetails4.setText("Year: "+data[3]);
+	}
+    
+    
+    //reads from file and populates librarylist!
+    public static void readSongArtist(ArrayList<SongArtist> librarylist, ArrayList<String> stringlist) {
     	//read from text file
         try {
             Scanner s = new Scanner(new File("src/view/songlist.txt"));
+            
             while (s.hasNextLine()) {
-            	songlist.add(s.nextLine());
+
+            	String thisline = s.nextLine();
+            	String[] arrOfStr = thisline.split("\\*",4);
+            	String thissong = arrOfStr[0];
+            	String thisartist = arrOfStr[1];
+            	String thisalbum = arrOfStr[2];
+            	String thisyear = arrOfStr[3];
+            	stringlist.add(thissong+" - "+thisartist+" - "+thisalbum+" - "+thisyear);
+            	
+            	librarylist.add(new SongArtist(thissong,thisartist,thisalbum,thisyear));
+            	
             }
             s.close();
+<<<<<<< HEAD
             //System.out.println(songlist);
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+            System.out.println(librarylist);
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     //convert object list to string list
 =======
@@ -207,6 +285,36 @@ public class SongLibController {
     
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
     public ArrayList<String> objectToList(ArrayList<SongArtist> librarylist){
+=======
+    
+    //writes sorted song library to songlist.txt so there is persistence
+    public static void writeToText(ArrayList<SongArtist> librarylist) {
+    	
+    	//delete txt and write new one
+    	File fold = new File("src/view/songlist.txt");
+    	fold.delete();
+    	
+    	File fnew = new File("src/view/songlist.txt");
+    	
+    	try {
+    		FileWriter f2 = new FileWriter(fnew,false);
+
+    		//convert list of objects to string list in the songlist.txt format and write to songlist.txt
+    		ArrayList<String> textlist = objectToText(librarylist);
+    		int n = textlist.size();
+    			
+    		for(int i=0;i<n;i++) {
+    			f2.write(textlist.get(i).toString()+"\n");
+    		}
+    		f2.close();
+    	}catch(Exception e){
+    		System.err.println(e);
+    	}
+    }
+    
+    //convert object list to string list
+    public static ArrayList<String> objectToList(ArrayList<SongArtist> librarylist){
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
     	
     	int n = librarylist.size();
     	ArrayList<String> listlist = new ArrayList<String>();
@@ -230,9 +338,31 @@ public class SongLibController {
 =======
     }
     
+    //convert object list to string list
+    public static ArrayList<String> objectToText(ArrayList<SongArtist> librarylist){
+    	
+    	int n = librarylist.size();
+    	ArrayList<String> listlist = new ArrayList<String>();
+    	
+    	for(int i=0;i<n;i++) {
+    		listlist.add(librarylist.get(i).toText());
+    	}
+    	
+    	//System.out.println(listlist);
+    	return listlist;
+    	
+    }    
+
     //adding a SongArtist to obsList
     public boolean add(SongArtist toAdd) {
+<<<<<<< HEAD
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+    	//not sure if check for null means anything addsongName.getText().equals(null) || addartist.getText().equals(null) || 
+    	if(addsongName.getText().equals("") || addartist.getText().equals("")) {
+    		return false;
+    	}
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
     	for(int i=0;i<librarylist.size();i++) {
     		if(librarylist.get(i).song.toLowerCase().equals(toAdd.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toAdd.artist.toLowerCase())) {
         		return false;
@@ -243,9 +373,159 @@ public class SongLibController {
         Collections.sort(librarylist);   
    		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
   		listView.setItems(obsList); 
-        return true;
-    	
+  		//select added song
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toAdd.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toAdd.artist.toLowerCase())) {
+    		    listView.getSelectionModel().select(i);
+    		    return true;
+    		}
+    	}
+    	return true;
     }
+    
+    public boolean delete(SongArtist toDelete) {
+    	//find toDelete in librarylist
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(toDelete.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(toDelete.artist.toLowerCase())) {
+        		librarylist.remove(i);
+                Collections.sort(librarylist);   
+           		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+          		listView.setItems(obsList);       
+           		writeToText(librarylist);
+        		return true;
+    		}
+    	}
+    	
+    	//should never reach here, toDelete always exists in librarylist bc the user picks it from the list.
+    	//we need to take into account if the user hits delete without selecting a song
+    	return false;
+    }
+    
+    //creates an error pop-up, fill with errormessage String
+    void errorpopup(String errormessage) {
+    	Alert a = new Alert(AlertType.ERROR);
+    	a.setTitle("Error");
+    	a.setContentText(errormessage);
+    	a.showAndWait();
+    }
+    
+	// add button click - confirm with pop up!
+	@FXML
+    void addsong(ActionEvent event) {
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to ADD this song?",ButtonType.YES,ButtonType.CANCEL);
+		//a.setHeaderText(null);
+		a.setTitle("Confirm Add Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			//get songName, artist, album, year
+			//create new songArtist
+			//add to listlibrary and update obList
+			
+	    	SongArtist toadd = new SongArtist(addsongName.getText(), addartist.getText(), addalbum.getText(), addyear.getText());
+	    	//System.out.println(toadd);
+	    	if(!add(toadd)) {
+	    		//send out an error message
+	    		errorpopup("This song and artist already exists, or you did not enter anything into the field. Please fix and try again!");
+	    		System.out.println("EITHER SONG ARTIST TEXT FIELD IS NULL OR SONG ARTIST ALREADY EXISTS");
+	    	}
+	    	
+	    	//reset textboxes
+	    	addsongName.clear();
+	    	addartist.clear();
+	    	addalbum.clear();
+	    	addyear.clear();
+	    	
+	    	writeToText(librarylist);
+		}
+		
+    }
+	
+	
+	@FXML
+	void deletesong(ActionEvent event) {
+		//are you sure popup?
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to DELETE this song?",ButtonType.YES,ButtonType.CANCEL);
+		a.setTitle("Confirm Delete Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			int index = listView.getSelectionModel().getSelectedIndex();
+			if(index==-1) 
+				return;
+
+			//call delete
+			System.out.println(delete(librarylist.get(index)));
+			
+			//select the song after the deleted song, if there is no song after, select the song before.
+			if(index==librarylist.size()) {
+				listView.getSelectionModel().select(index-1);
+			}else {
+				listView.getSelectionModel().select(index);
+			}
+			
+		}
+		
+	}
+	
+	
+	@FXML
+	void editsong(ActionEvent event) {
+		//are you sure popup?
+		Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to EDIT this song?",ButtonType.YES,ButtonType.CANCEL);
+		a.setTitle("Confirm Edit Song");
+		a.showAndWait();
+		if(a.getResult() == ButtonType.YES) {
+			
+			//ALL THE CODE TO EDIT THIS SONG GOES HERE
+			int index = listView.getSelectionModel().getSelectedIndex();
+	    	SongArtist editedsong = new SongArtist(editsongName.getText(), editartist.getText(), editalbum.getText(), edityear.getText());
+	    	
+	    	if(!edit(editedsong,index)) {
+	    		Alert b = new Alert(AlertType.ERROR,"Song error",ButtonType.OK);
+	    		b.setTitle("Song Error");
+	    		b.showAndWait();
+	    	}
+	    	writeToText(librarylist);
+		}
+		
+	}
+	
+	
+	
+	//to edit something, i have to check if its being edited into something that already exists
+	//to do so, save unedited object, remove from librarylist, check if something else matches edited
+	// if it does, then put the original song back and reprot a failure
+	// also check to see if the song was edited at all, and if not give an erros and say nothing changed?
+    public boolean edit(SongArtist edited,int originalindex) {
+    	//not sure if check for null means anything addsongName.getText().equals(null) || addartist.getText().equals(null) || 
+    	if(librarylist.size()==0) {
+    		return false;
+    	}
+    	if(editsongName.getText().equals("") || editartist.getText().equals("")) {
+    		return false;
+    	}
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(edited.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(edited.artist.toLowerCase())&&i!=originalindex) {
+        		return false;
+    		}
+    	}  	
+    	
+    	librarylist.remove(originalindex);
+    	librarylist.add(edited);
+        Collections.sort(librarylist);   
+   		obsList = FXCollections.observableArrayList(objectToList(librarylist)); 
+  		listView.setItems(obsList); 
+  		//select added song
+    	for(int i=0;i<librarylist.size();i++) {
+    		if(librarylist.get(i).song.toLowerCase().equals(edited.song.toLowerCase())&&librarylist.get(i).artist.toLowerCase().equals(edited.artist.toLowerCase())) {
+    		    listView.getSelectionModel().select(i);
+    		    return true;
+    		}
+    	}
+    	return true;
+    }
+<<<<<<< HEAD
 <<<<<<< HEAD
     
 	// Button was clicked, do something…
@@ -276,6 +556,9 @@ public class SongLibController {
 	}
 =======
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+	
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
 
 	
 }

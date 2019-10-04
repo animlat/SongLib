@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController">
@@ -15,22 +16,32 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController">
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController">
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
     <children>
       <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <ListView fx:id="listView" layoutY="71.0" prefHeight="462.4" prefWidth="336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 =======
                   <ListView fx:id="listView" prefHeight="398.4" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+                  <ListView fx:id="listView" layoutY="71.0" prefHeight="462.4" prefWidth="336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="398.4" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
@@ -54,16 +65,48 @@
                                 <Label fx:id="label" alignment="CENTER" prefHeight="195.2" prefWidth="294.4" text="Lable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                               <Button fx:id="editSong" layoutX="149.0" layoutY="187.0" mnemonicParsing="false" text="Edit" />
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+                        <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Label layoutX="24.0" layoutY="126.0" text="EDIT A SONG">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="60.0" layoutY="159.0" text="Song" />
+                              <Label layoutX="60.0" layoutY="193.0" text="Artist" />
+                              <Label layoutX="60.0" layoutY="224.0" text="Album" />
+                              <Label layoutX="61.0" layoutY="253.0" text="Year" />
+                              <TextField fx:id="editsongName" layoutX="113.0" layoutY="155.0" promptText="REQUIRED" />
+                              <TextField fx:id="editartist" layoutX="113.0" layoutY="187.0" promptText="REQUIRED" />
+                              <TextField fx:id="editalbum" layoutX="113.0" layoutY="218.0" />
+                              <TextField fx:id="edityear" layoutX="113.0" layoutY="249.0" />
+                              <Button layoutX="187.0" layoutY="285.0" mnemonicParsing="false" onAction="#editsong" text="Edit Song" />
+                              <Label layoutX="22.0" layoutY="32.0" text="CURRENTLY SELECTED SONG:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="songdetails" layoutX="16.0" layoutY="57.0" prefHeight="18.0" prefWidth="182.0" text="Song" />
+                              <Label fx:id="songdetails2" layoutX="204.0" layoutY="57.0" prefHeight="18.0" prefWidth="182.0" text="Artist" />
+                              <Label fx:id="songdetails3" layoutX="16.0" layoutY="79.0" prefHeight="18.0" prefWidth="182.0" text="Album" />
+                              <Label fx:id="songdetails4" layoutX="204.0" layoutY="79.0" prefHeight="18.0" prefWidth="182.0" text="Year" />
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
 <<<<<<< HEAD
+<<<<<<< HEAD
                               <Label layoutX="14.0" layoutY="14.0" text="ADD A SONG">
+=======
+                              <Label layoutX="24.0" layoutY="28.0" text="ADD A SONG">
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
+<<<<<<< HEAD
                               <Label layoutX="50.0" layoutY="47.0" text="Song" />
                               <Label layoutX="50.0" layoutY="81.0" text="Artist" />
                               <Label layoutX="50.0" layoutY="112.0" text="Album" />
@@ -74,10 +117,23 @@
                               <TextField fx:id="addyear" layoutX="103.0" layoutY="137.0" />
                               <Button layoutX="177.0" layoutY="173.0" mnemonicParsing="false" onAction="#addbutton" text="Add Song" />
                               <Label layoutX="14.0" layoutY="243.0" text="REMOVE A SONG">
+=======
+                              <Label layoutX="60.0" layoutY="61.0" text="Song" />
+                              <Label layoutX="60.0" layoutY="95.0" text="Artist" />
+                              <Label layoutX="60.0" layoutY="126.0" text="Album" />
+                              <Label layoutX="61.0" layoutY="155.0" text="Year" />
+                              <TextField fx:id="addsongName" layoutX="113.0" layoutY="57.0" promptText="REQUIRED" />
+                              <TextField fx:id="addartist" layoutX="113.0" layoutY="89.0" promptText="REQUIRED" />
+                              <TextField fx:id="addalbum" layoutX="113.0" layoutY="120.0" />
+                              <TextField fx:id="addyear" layoutX="113.0" layoutY="151.0" />
+                              <Button layoutX="187.0" layoutY="187.0" mnemonicParsing="false" onAction="#addsong" text="Add Song" />
+                              <Label layoutX="24.0" layoutY="248.0" text="REMOVE A SONG">
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
+<<<<<<< HEAD
                               <Button layoutX="104.0" layoutY="268.0" mnemonicParsing="false" onAction="#deletebutton" text="DELETE SELECTED SONG" />
                            </children>
                         </AnchorPane>
@@ -100,6 +156,15 @@
                   </SplitPane>
                </children></AnchorPane>
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+                              <Button layoutX="114.0" layoutY="273.0" mnemonicParsing="false" onAction="#deletesong" text="DELETE SELECTED SONG" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
         </items>
       </SplitPane>
     </children>

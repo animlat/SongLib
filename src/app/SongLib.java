@@ -16,10 +16,14 @@ public class SongLib extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/view/SongLib.fxml"));
         primaryStage.setTitle("Song Library");
 <<<<<<< HEAD
+<<<<<<< HEAD
         primaryStage.setScene(new Scene(root, 800, 700));
 =======
         primaryStage.setScene(new Scene(root, 800, 600));
 >>>>>>> c62e2a23264ad567d47df2e82eb8496481a84d50
+=======
+        primaryStage.setScene(new Scene(root, 800, 700));
+>>>>>>> fccad8f1aa9d60efdc6dd9676b29c26a478df378
         primaryStage.show();
     }
 

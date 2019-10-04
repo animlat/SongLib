@@ -45,6 +45,7 @@ public class SongArtist implements Comparable<SongArtist>{
 		this.year = year;
 	}
 	
+
 	@Override
 	public int compareTo(SongArtist o) {
 		int compare = song.toLowerCase().compareTo(o.song.toLowerCase());
@@ -62,4 +63,11 @@ public class SongArtist implements Comparable<SongArtist>{
 		return song+ " - " +artist+ " - " +album+ " - " +year;
 	}
 	
+	public String toText() {
+		return song+ "*" +artist+ "*" +album+ "*" +year;
+	}
+	
 }
+
+	
+
